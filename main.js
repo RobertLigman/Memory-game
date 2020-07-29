@@ -15,15 +15,36 @@ const shuffleTiles = function() {
         element.textContent = memoryArray[rng];
         memoryArray.splice(rng, 1);
         element.addEventListener('click', function(e) {
-                if (tileArray.filter(el => {
-                        return el.style.backgroundColor == 'green';
-                    }).length > 2) {
+                e.target.style.backgroundColor = 'green';
+                const filteredArray = tileArray.filter(el => {
+                    return el.style.backgroundColor == 'green';
+                })
+                if (filteredArray.length >= 2) {
                     tileArray.forEach(el => {
                         el.style.backgroundColor = 'white';
-                    })
-                } else {
-                    e.target.style.backgroundColor = 'green';
+                    });
+                    if (filteredArray[0].textContent == filteredArray[1].textContent) {
+                        filteredArray.forEach(element => {
+                            element.style.backgroundColor = 'green';
+                        })
+                        tileArray.forEach((element, index) => {
+                                if (element === filteredArray[0]) {
+                                    tileArray.splice(index, 1);
+                                    filteredArray.shift();
+                                    console.log(true, filteredArray)
+                                } else if (element === filteredArray[1]) {
+                                    tileArray.splice(index, 1);
+                                    filteredArray.pop()
+                                    console.log(true, filteredArray)
+                                }
+                            })
+                            // tileArray.splice()
+                    }
+
+
                 }
+
+
 
             })
             // console.log(memoryArray)
