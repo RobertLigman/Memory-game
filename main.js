@@ -1,5 +1,5 @@
 const btn = document.querySelector('button');
-const tileArray = document.querySelectorAll('.memory-tile');
+const tileArray = [...document.querySelectorAll('.memory-tile')];
 const memoryArray = [];
 const numberOfPairs = tileArray.length / 2;
 
@@ -14,10 +14,20 @@ const shuffleTiles = function() {
         const rng = Math.floor(Math.random() * memoryArray.length);
         element.textContent = memoryArray[rng];
         memoryArray.splice(rng, 1);
-        // console.log(memoryArray)
+        element.addEventListener('click', function(e) {
+                if (tileArray.filter(el => {
+                        return el.style.backgroundColor == 'green';
+                    }).length > 2) {
+                    tileArray.forEach(el => {
+                        el.style.backgroundColor = 'white';
+                    })
+                } else {
+                    e.target.style.backgroundColor = 'green';
+                }
+
+            })
+            // console.log(memoryArray)
     })
-
-
 
 
 };
